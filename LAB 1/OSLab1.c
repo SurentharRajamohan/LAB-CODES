@@ -22,16 +22,17 @@ void firstComeFirstServe(struct Process processes[], int numberOfProcess, int wa
         - processes[i-1].process_arrival_time : the arrival time of the previous process
         - processes[i].process_arrival_time : the arrival time of the current process
         */
-    }
-    
-    // calculate turnaround time for all processes
-    for (int i = 0; i < numberOfProcess; i++) {
-        turnaround_time[i] = waiting_time[i] + processes[i].process_burst_time;
+       turnaround_time[i-1] = waiting_time[i-1] + processes[i-1].process_burst_time;
         /*
         - waiting_time[i] : the waiting time of the current process
         - processes[i].process_burst_time : the burst time of the current process
         */
+       if(i == numberOfProcess - 1 ){
+        turnaround_time[numberOfProcess-1] = waiting_time[numberOfProcess-1] + processes[numberOfProcess-1].process_burst_time;
+       }
+       
     }
+    
 }
 
 // function to print process details and calculated times
@@ -51,7 +52,7 @@ void showOutput(struct Process processes[], int numberOfProcess, int waiting_tim
 
 // main function
 int main() {
-    struct Process processes[] = {{'A', 0, 5}, {'B', 1, 3}, {'C', 2, 8}};
+    struct Process processes[] = {{'A', 0, 12}, {'B', 1, 5}, {'C', 2, 10}, {'D', 3, 2}};
     int numberOfProcess = sizeof(processes) / sizeof(struct Process);
     /*
     - processes : an array of Process structs, representing the processes to be scheduled
